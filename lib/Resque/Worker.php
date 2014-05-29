@@ -511,13 +511,10 @@ class Resque_Worker
 			// Strip "
 			$line = str_replace("\"", "", $line);
 		
-			// Get exploded list of process attributes
-			$pid = explode(',', trim($line), 3);
-		
-			// Add PID to array
-			$pids[] = $pid[1];
+			// Explode list of process attributes and get second value (will be "process | pid"
+			$pids[] = explode(',', trim($line), 3)[1];
 		}
-
+	
 		return $pids;
 	}
 
