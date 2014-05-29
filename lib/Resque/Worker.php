@@ -501,18 +501,25 @@ class Resque_Worker
      *
      * @return array Array of Resque worker process IDs.
      */
-    public function workerPids()
-    {
-        $pids = array();
-        exec('tasklist | FIND "[r]esque"', $cmdOutput);
-        foreach ($cmdOutput as $line) {
-            var_dump(explode(' ', trim($line), 2));
-            die;
-            
-            //list($pids[]) = explode(' ', trim($line), 2);
-        }
-        return $pids;
-    }
+	public function workerPids()
+	{
+		$pids = array();
+		// TODO: Need to check if the process will be resque or Resque - may need to run twice and combine output
+		exec('tasklist /fo csv | FIND "resque"', $cmdOutput);
+		
+		foreach($cmdOutput as $line) {
+			// Strip "
+			$line = str_replace("\"", "", $line);
+		
+			// Get exploded list of process attributes
+			$pid = explode(',', trim($line), 3);
+		
+			// Add PID to array
+			$pids[] = $pid[1];
+		}
+
+		return $pids;
+	}
 
     /**
      * Register this worker in Redis.
