@@ -26,9 +26,6 @@
 			"Resque": "lib"
 		}
 	},
-	"suggest": {
-		"fresque/fresque": "A command line tool to manage your workers"
-	},
 	"support": {
 		"email": "kami@kamisama.me",
 		"issues": "https://github.com/kamisama/php-resque-ex/issues",
