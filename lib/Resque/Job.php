@@ -173,7 +173,7 @@ class Resque_Job
 					'Job class ' . $this->payload['class'] . ' does not contain a perform method.'
 				);
 			}
-			$this->instance = new $this->payload['class']();
+			$this->instance = new $this->payload['class']($this->app);
 		}
 
 		$this->instance->job = $this;
