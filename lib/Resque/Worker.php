@@ -94,6 +94,8 @@ class Resque_Worker
 
     protected $logger = null;
 
+    protected $app;
+
     /**
      * Return all workers known to Resque as instantiated instances.
      * @return array
@@ -164,8 +166,11 @@ class Resque_Worker
      *
      * @param string|array $queues String with a single queue name, array with multiple.
      */
-    public function __construct($queues)
+    public function __construct($queues, $app)
     {
+    	
+    	$this->app = $app;
+    	
         if (!is_array($queues)) {
             $queues = array($queues);
         }
@@ -294,7 +299,7 @@ class Resque_Worker
         }
         foreach ($queues as $queue) {
             $this->log(array('message' => 'Checking ' . $queue, 'data' => array('type' => 'check', 'queue' => $queue)), self::LOG_TYPE_DEBUG);
-            $job = Resque_Job::reserve($queue);
+            $job = Resque_Job::reserve($queue, $this->app);
             if ($job) {
                 $this->log(array('message' => 'Found job on ' . $queue, 'data' => array('type' => 'found', 'queue' => $queue)), self::LOG_TYPE_DEBUG);
                 return $job;
