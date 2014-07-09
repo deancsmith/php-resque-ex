@@ -69,7 +69,7 @@ if (!empty($INTERVAL)) {
 // Adding back in PREFIX option
 $PREFIX = getenv('PREFIX');
 if(!empty($PREFIX)) {
-    Resque_Redis::prefix($PREFIX);
+    Resque::redis()->prefix($PREFIX);
 }
 
 $PIDFILE = getenv('PIDFILE');
