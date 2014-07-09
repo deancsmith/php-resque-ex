@@ -31,6 +31,8 @@ class Resque_Job
 	 * @var object Instance of the class performing work for this job.
 	 */
 	private $instance;
+	
+	private $app;
 
 	/**
 	 * Instantiate a new instance of a job.
@@ -38,10 +40,11 @@ class Resque_Job
 	 * @param string $queue The queue that the job belongs to.
 	 * @param array $payload array containing details of the job.
 	 */
-	public function __construct($queue, $payload)
+	public function __construct($queue, $payload, $app)
 	{
 		$this->queue = $queue;
 		$this->payload = $payload;
+		$this->app = $app;
 	}
 
 	/**
@@ -95,14 +98,14 @@ class Resque_Job
 	 * @param string $queue The name of the queue to check for a job in.
 	 * @return null|object Null when there aren't any waiting jobs, instance of Resque_Job when a job was found.
 	 */
-	public static function reserve($queue)
+	public static function reserve($queue, $app)
 	{
 		$payload = Resque::pop($queue);
 		if(!is_array($payload)) {
 			return false;
 		}
 
-		return new Resque_Job($queue, $payload);
+		return new Resque_Job($queue, $payload, $app);
 	}
 
 	/**
