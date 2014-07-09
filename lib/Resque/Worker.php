@@ -166,9 +166,8 @@ class Resque_Worker
      *
      * @param string|array $queues String with a single queue name, array with multiple.
      */
-    public function __construct($queues, $app)
+    public function __construct($queues, $app = null)
     {
-    	
     	$this->app = $app;
     	
         if (!is_array($queues)) {
