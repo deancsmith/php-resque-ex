@@ -69,7 +69,6 @@ if (!empty($INTERVAL)) {
 // Adding back in PREFIX option
 $PREFIX = getenv('PREFIX');
 if(!empty($PREFIX)) {
-    $logger->log(Psr\Log\LogLevel::INFO, 'Prefix set to {prefix}', array('prefix' => $PREFIX));
     Resque_Redis::prefix($PREFIX);
 }
 
