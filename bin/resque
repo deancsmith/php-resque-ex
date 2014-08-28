@@ -19,7 +19,7 @@ if (empty($QUEUE)) {
     die("Set QUEUE env var containing the list of queues to work.\n");
 }
 
-$REDIS_BACKEND = getenv('REDIS_BACKEND');
+$REDIS_BACKEND = $app['redis.options']['host'] . ":" . $app['redis.options']['port'];
 $REDIS_DATABASE = getenv('REDIS_DATABASE');
 $REDIS_NAMESPACE = getenv('REDIS_NAMESPACE');
 
