@@ -1,5 +1,6 @@
 #!/usr/bin/env php
 <?php
+ob_start();
 
 if (!isset($app)) {
     $app = null;
